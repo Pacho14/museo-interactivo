@@ -82,28 +82,31 @@ function initViewer360() {
 function createARHotspot(hotSpotDiv, args) {
     hotSpotDiv.classList.add('ar-hotspot-container');
 
-    // Crear el icono del hotspot
-    const icon = document.createElement('div');
+    // Crear el botón del hotspot
+    const button = document.createElement('div');
+    button.className = 'hotspot-button';
+
+    // Icono
+    const icon = document.createElement('span');
     icon.className = 'hotspot-icon';
     icon.innerHTML = '📱';
 
-    // Crear el tooltip
-    const tooltip = document.createElement('div');
-    tooltip.className = 'hotspot-tooltip';
-    tooltip.textContent = args || 'Ver en AR';
+    // Texto del botón
+    const text = document.createElement('span');
+    text.className = 'hotspot-text';
+    text.textContent = args || 'Ver en AR';
 
-    hotSpotDiv.appendChild(icon);
-    hotSpotDiv.appendChild(tooltip);
+    button.appendChild(icon);
+    button.appendChild(text);
+    hotSpotDiv.appendChild(button);
 
     // Agregar efecto hover
-    hotSpotDiv.addEventListener('mouseenter', function () {
-        tooltip.style.opacity = '1';
-        tooltip.style.transform = 'translateY(-10px)';
+    button.addEventListener('mouseenter', function () {
+        button.style.transform = 'scale(1.1)';
     });
 
-    hotSpotDiv.addEventListener('mouseleave', function () {
-        tooltip.style.opacity = '0';
-        tooltip.style.transform = 'translateY(0)';
+    button.addEventListener('mouseleave', function () {
+        button.style.transform = 'scale(1)';
     });
 }
 
