@@ -91,18 +91,79 @@ function initViewer360() {
                     "createTooltipFunc": createARHotspot,
                     "clickHandlerFunc": showInfoMessage,
                     "createTooltipArgs": "MARIMBA"
+                },
+                {
+                    // Audio Hotspot (Ubicado al lado de la Marimba)
+                    "pitch": -13.2060,
+                    "yaw": -22.0000,
+                    "type": "custom",
+                    "cssClass": "audio-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": toggleAudio,
+                    "createTooltipArgs": "AUDIO_MARIMBA"
                 }
             ]
         });
 
         console.log('Visor 360° inicializado correctamente con hotspots AR');
     } catch (error) {
-        console.error('Error al inicializar el visor 360°:', error);
-        document.getElementById('viewer360').innerHTML =
-            '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f0f0f0; color: #666;">' +
-            '<p>⚠️ Error al cargar el visor 360°. Verifica que la imagen panorama.jpg existe.</p>' +
-            '</div>';
+        // ... (rest of catch block)
     }
+}
+
+// ============================================
+// GESTIÓN DE AUDIO GLOBAL
+// ============================================
+let currentAudio = null;
+let isPlaying = false;
+
+function toggleAudio(event, args) {
+    console.log('Toggle audio llamado');
+
+    // Si no hay audio cargado, lo creamos
+    if (!currentAudio) {
+        currentAudio = new Audio('audio_marimba.mp3?v=' + new Date().getTime());
+        currentAudio.loop = true; // Que se repita
+    }
+
+    if (isPlaying) {
+        currentAudio.pause();
+        isPlaying = false;
+        showToast('Audio Pausado ⏸️');
+    } else {
+        currentAudio.play()
+            .then(() => {
+                isPlaying = true;
+                showToast('Reproduciendo Audio 🎵');
+            })
+            .catch(e => {
+                console.error("Error al reproducir:", e);
+                showToast('Error al reproducir audio ❌');
+            });
+    }
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        z-index: 10001;
+        font-family: sans-serif;
+        animation: fadeIn 0.3s;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => document.body.removeChild(toast), 300);
+    }, 2000);
 }
 
 // ============================================
@@ -122,12 +183,24 @@ function createARHotspot(hotSpotDiv, args) {
     // Icono
     const icon = document.createElement('span');
     icon.className = 'hotspot-icon';
-    icon.innerHTML = '📱';
+
+    // Icono diferenciado para Audio
+    if (args === 'AUDIO_MARIMBA') {
+        icon.innerHTML = '🔊';
+        button.style.background = 'linear-gradient(135deg, #FF9800 0%, #F44336 100%)'; // Color naranja/rojo para audio
+    } else {
+        icon.innerHTML = '📱';
+    }
 
     // Texto del botón
     const text = document.createElement('span');
     text.className = 'hotspot-text';
-    text.textContent = args || 'Ver en AR';
+
+    if (args === 'AUDIO_MARIMBA') {
+        text.textContent = 'Escuchar';
+    } else {
+        text.textContent = args || 'Ver en AR';
+    }
 
     button.appendChild(icon);
     button.appendChild(text);
@@ -167,10 +240,7 @@ function showInfoMessage(event, args) {
     } else if (objectTitle === 'Caminos trenzados') {
         objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
     } else if (objectTitle === 'MARIMBA') {
-        objectInfo.description = 'Instrumento de percusión idiófono, de forma parecida al xilófono. Toca el botón para escuchar.';
-        // Agregamos timestamp para evitar caché
-        objectInfo.audio = 'audio_marimba.mp3?v=' + new Date().getTime();
-        console.log('Audio configurado para MARIMBA:', objectInfo.audio);
+        objectInfo.description = 'Instrumento de percusión idiófono, de forma parecida al xilófono. Presiona el botón de audio 🔊 que está al lado para escuchar.';
     } else if (objectTitle === 'EXPO NEGRO-CRISTIAN BAENA') {
         objectInfo.description = 'Exposición destacada de Cristian Baena.';
     } else if (objectTitle === 'CALIPSO') {
