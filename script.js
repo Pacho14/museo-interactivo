@@ -64,6 +64,33 @@ function initViewer360() {
                     "createTooltipFunc": createARHotspot,
                     "clickHandlerFunc": showInfoMessage,
                     "createTooltipArgs": "Caminos trenzados"
+                },
+                {
+                    "pitch": 9.3039,
+                    "yaw": -11.8930,
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "EXPO NEGRO-CRISTIAN BAENA"
+                },
+                {
+                    "pitch": -37.2117,
+                    "yaw": -40.4131,
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "CALIPSO"
+                },
+                {
+                    "pitch": -13.2060,
+                    "yaw": -28.5296,
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "MARIMBA"
                 }
             ]
         });
@@ -139,6 +166,13 @@ function showInfoMessage(event, args) {
         objectInfo.description = 'Traje tradicional de la cultura laboral de Antioquia, Colombia.';
     } else if (objectTitle === 'Caminos trenzados') {
         objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
+    } else if (objectTitle === 'MARIMBA') {
+        objectInfo.description = 'Instrumento de percusión idiófono, de forma parecida al xilófono. Toca el botón para escuchar.';
+        objectInfo.audio = 'audio_marimba.mp3'; // Nombre del archivo de audio (debe existir en la carpeta)
+    } else if (objectTitle === 'EXPO NEGRO-CRISTIAN BAENA') {
+        objectInfo.description = 'Exposición destacada de Cristian Baena.';
+    } else if (objectTitle === 'CALIPSO') {
+        objectInfo.description = 'Obra inspirada en la ninfa Calipso.';
     }
 
     // Crear overlay oscuro
@@ -222,6 +256,29 @@ function showInfoMessage(event, args) {
     // Ensamblar elementos
     messageBox.appendChild(title);
     messageBox.appendChild(description);
+
+    // Si hay audio, agregar el reproductor
+    if (objectInfo.audio) {
+        const audioPlayer = document.createElement('audio');
+        audioPlayer.controls = true;
+        audioPlayer.style.cssText = `
+            width: 100%;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        `;
+        const source = document.createElement('source');
+        source.src = objectInfo.audio;
+        source.type = 'audio/mpeg';
+
+        audioPlayer.appendChild(source);
+        messageBox.appendChild(audioPlayer);
+
+        // Mensaje si no hay archivo
+        audioPlayer.onerror = () => {
+            console.warn('Audio no encontrado:', objectInfo.audio);
+        };
+    }
+
     messageBox.appendChild(closeButton);
     overlay.appendChild(messageBox);
 
