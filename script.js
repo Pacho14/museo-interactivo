@@ -54,7 +54,7 @@ function initViewer360() {
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
                     "clickHandlerFunc": showInfoMessage,
-                    "createTooltipArgs": "Palenquera antioqueña"
+                    "createTooltipArgs": "BAREQUERA DE ANTIOQUIA"
                 },
                 {
                     "pitch": -5.8489,   // Coordenadas finales
@@ -135,8 +135,8 @@ function showInfoMessage(event, args) {
     };
 
     // Personalizar información según el objeto
-    if (objectTitle === 'Palenquera antioqueña') {
-        objectInfo.description = 'Traje tradicional de la cultura palenquera de Antioquia, Colombia.';
+    if (objectTitle === 'BAREQUERA DE ANTIOQUIA') {
+        objectInfo.description = 'Traje tradicional de la cultura laboral de Antioquia, Colombia.';
     } else if (objectTitle === 'Caminos trenzados') {
         objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
     }
