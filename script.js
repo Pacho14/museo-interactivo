@@ -168,7 +168,9 @@ function showInfoMessage(event, args) {
         objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
     } else if (objectTitle === 'MARIMBA') {
         objectInfo.description = 'Instrumento de percusión idiófono, de forma parecida al xilófono. Toca el botón para escuchar.';
-        objectInfo.audio = 'audio_marimba.mp3'; // Nombre del archivo de audio (debe existir en la carpeta)
+        // Agregamos timestamp para evitar caché
+        objectInfo.audio = 'audio_marimba.mp3?v=' + new Date().getTime();
+        console.log('Audio configurado para MARIMBA:', objectInfo.audio);
     } else if (objectTitle === 'EXPO NEGRO-CRISTIAN BAENA') {
         objectInfo.description = 'Exposición destacada de Cristian Baena.';
     } else if (objectTitle === 'CALIPSO') {
@@ -259,6 +261,7 @@ function showInfoMessage(event, args) {
 
     // Si hay audio, agregar el reproductor
     if (objectInfo.audio) {
+        console.log('Intentando crear reproductor de audio...');
         const audioPlayer = document.createElement('audio');
         audioPlayer.controls = true;
         audioPlayer.style.cssText = `
