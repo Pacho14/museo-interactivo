@@ -41,7 +41,7 @@ function initViewer360() {
             // ============================================
             "hotSpots": [
                 {
-                    "pitch": -4.22,   // Nueva posición del traje (más visible)
+                    "pitch": 10,      // Posición elevada para mejor visibilidad
                     "yaw": -30.45,    // Nueva posición del traje (más visible)
                     "type": "custom",
                     "cssClass": "ar-hotspot",
