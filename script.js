@@ -48,6 +48,15 @@ function initViewer360() {
                     "createTooltipFunc": createARHotspot,
                     "clickHandlerFunc": showInfoMessage,
                     "createTooltipArgs": "Palenquera antioqueña"
+                },
+                {
+                    "pitch": -18.03,  // Coordenadas obtenidas del visor
+                    "yaw": -14.23,    // Coordenadas obtenidas del visor
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "Caminos trenzados"
                 }
             ]
         });
@@ -90,6 +99,9 @@ function createARHotspot(hotSpotDiv, args) {
     button.appendChild(text);
     hotSpotDiv.appendChild(button);
 
+    // Guardar el título en el elemento para usarlo después
+    hotSpotDiv.dataset.title = args;
+
     // Agregar efecto hover
     button.addEventListener('mouseenter', function () {
         button.style.transform = 'scale(1.1)';
@@ -103,8 +115,24 @@ function createARHotspot(hotSpotDiv, args) {
 /**
  * Muestra un mensaje informativo cuando se hace clic en el hotspot
  */
-function showInfoMessage() {
+function showInfoMessage(event, args) {
     console.log('Hotspot informativo clickeado - Mostrando información');
+
+    // Obtener el título del hotspot (args contiene el título)
+    const objectTitle = args || 'Objeto del museo';
+
+    // Definir información según el objeto
+    let objectInfo = {
+        title: objectTitle,
+        description: 'Información sobre este objeto del museo.'
+    };
+
+    // Personalizar información según el objeto
+    if (objectTitle === 'Palenquera antioqueña') {
+        objectInfo.description = 'Traje tradicional de la cultura palenquera de Antioquia, Colombia.';
+    } else if (objectTitle === 'Caminos trenzados') {
+        objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
+    }
 
     // Crear overlay oscuro
     const overlay = document.createElement('div');
@@ -138,7 +166,7 @@ function showInfoMessage() {
 
     // Título
     const title = document.createElement('h2');
-    title.textContent = 'Palenquera antioqueña';
+    title.textContent = objectInfo.title;
     title.style.cssText = `
         color: #2c3e50;
         font-size: 2rem;
@@ -148,7 +176,7 @@ function showInfoMessage() {
 
     // Descripción
     const description = document.createElement('p');
-    description.textContent = 'Traje tradicional de la cultura palenquera de Antioquia, Colombia.';
+    description.textContent = objectInfo.description;
     description.style.cssText = `
         color: #555;
         font-size: 1.1rem;
