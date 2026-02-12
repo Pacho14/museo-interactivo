@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Museo Digital - Recorrido 360° y AR</title>
-    
+
     <!-- Pannellum para visor 360° -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    
+
     <!-- Google Model Viewer para AR -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-    
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Banner Superior -->
     <header class="banner">
@@ -25,21 +27,22 @@
 
     <!-- Contenedor Principal -->
     <main class="container">
-        
+
         <!-- Sección Recorrido 360° -->
         <section class="section-360">
             <div class="section-header">
                 <h2>Recorrido Virtual 360°</h2>
                 <p class="section-description">
-                    Explora nuestro museo desde cualquier ángulo. Arrastra con el mouse o desliza con el dedo 
-                    para moverte por el espacio. Una experiencia inmersiva que te transporta directamente a nuestras salas.
+                    Explora nuestro museo desde cualquier ángulo. Arrastra con el mouse o desliza con el dedo
+                    para moverte por el espacio. Una experiencia inmersiva que te transporta directamente a nuestras
+                    salas.
                 </p>
             </div>
-            
+
             <div class="viewer-container">
                 <div id="viewer360"></div>
             </div>
-            
+
             <div class="controls-info">
                 <p>🖱️ Arrastra para rotar | 📱 Desliza en móvil | 🔍 Scroll para zoom</p>
             </div>
@@ -50,7 +53,7 @@
             <div class="section-header">
                 <h2>Experiencia de Realidad Aumentada</h2>
                 <p class="section-description">
-                    Lleva las piezas del museo a tu espacio. Presiona el botón "Ver en AR" para colocar 
+                    Lleva las piezas del museo a tu espacio. Presiona el botón "Ver en AR" para colocar
                     modelos 3D en tu entorno real. Requiere un dispositivo compatible con AR.
                 </p>
             </div>
@@ -64,22 +67,15 @@
             </div>
 
             <div class="ar-viewer-container" id="ar-container">
-                <model-viewer
-                    id="ar-viewer"
-                    src="modelo.glb"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    touch-action="pan-y"
-                    shadow-intensity="1"
-                    alt="Modelo 3D del museo"
+                <model-viewer id="ar-viewer" src="10_2_2026.glb" ar ar-modes="webxr scene-viewer quick-look"
+                    camera-controls touch-action="pan-y" shadow-intensity="1" alt="Modelo 3D del museo"
                     style="display: none;">
-                    
+
                     <div class="ar-prompt" slot="ar-button">
                         <p>AR activado - Toca para colocar en tu espacio</p>
                     </div>
                 </model-viewer>
-                
+
                 <div id="ar-placeholder" class="ar-placeholder">
                     <div class="placeholder-content">
                         <span class="placeholder-icon">🎨</span>
@@ -120,4 +116,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
