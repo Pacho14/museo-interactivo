@@ -162,19 +162,15 @@ section {
     cursor: pointer;
 }
 
-.ar-hotspot {
-    /* Clase base para compatibilidad */
-}
-
 .hotspot-button {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 12px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
     border-radius: 25px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
     animation: pulseHotspot 2s infinite;
     transition: all 0.3s ease;
     border: 2px solid rgba(255, 255, 255, 0.9);
@@ -183,7 +179,7 @@ section {
 
 .hotspot-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.9);
+    box-shadow: 0 6px 25px rgba(255, 0, 0, 0.9);
 }
 
 .hotspot-icon {
@@ -202,12 +198,12 @@ section {
 
     0%,
     100% {
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+        box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
     }
 
     50% {
-        box-shadow: 0 4px 30px rgba(102, 126, 234, 1),
-            0 0 0 10px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 30px rgba(255, 0, 0, 1),
+            0 0 0 10px rgba(255, 0, 0, 0.3);
     }
 }
 
