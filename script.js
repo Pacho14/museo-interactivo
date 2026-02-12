@@ -50,8 +50,8 @@ function initViewer360() {
                     "createTooltipArgs": "Palenquera antioqueña"
                 },
                 {
-                    "pitch": 22.0130, // Coordenadas actualizadas (4)
-                    "yaw": 38.7098,   // Coordenadas actualizadas (4)
+                    "pitch": 41.3676, // Coordenadas actualizadas (5)
+                    "yaw": 64.5084,   // Coordenadas actualizadas (5)
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
