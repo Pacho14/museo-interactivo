@@ -46,8 +46,8 @@ function initViewer360() {
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
-                    "clickHandlerFunc": activateARFromHotspot,
-                    "createTooltipArgs": "Ver Traje en AR"
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "Palenquera antioqueña"
                 }
             ]
         });
@@ -101,22 +101,146 @@ function createARHotspot(hotSpotDiv, args) {
 }
 
 /**
- * Maneja el click en un hotspot AR
+ * Muestra un mensaje informativo cuando se hace clic en el hotspot
  */
-function activateARFromHotspot() {
-    console.log('Hotspot AR clickeado - Activando experiencia AR');
+function showInfoMessage() {
+    console.log('Hotspot informativo clickeado - Mostrando información');
 
-    // Scroll suave a la sección AR
-    const arContainer = document.getElementById('ar-container');
-    arContainer.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-    });
+    // Crear overlay oscuro
+    const overlay = document.createElement('div');
+    overlay.id = 'info-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    `;
 
-    // Activar AR después de un pequeño delay para que el scroll termine
-    setTimeout(() => {
-        activateAR();
-    }, 800);
+    // Crear caja de mensaje
+    const messageBox = document.createElement('div');
+    messageBox.style.cssText = `
+        background: white;
+        padding: 2.5rem;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        animation: slideUp 0.4s ease;
+    `;
+
+    // Título
+    const title = document.createElement('h2');
+    title.textContent = 'Palenquera antioqueña';
+    title.style.cssText = `
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    `;
+
+    // Descripción
+    const description = document.createElement('p');
+    description.textContent = '¿Deseas ver este objeto en Realidad Aumentada?';
+    description.style.cssText = `
+        color: #555;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    `;
+
+    // Contenedor de botones
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.cssText = `
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    `;
+
+    // Botón Ver en AR
+    const arButton = document.createElement('button');
+    arButton.textContent = '📱 Ver en AR';
+    arButton.style.cssText = `
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    `;
+    arButton.onmouseover = () => {
+        arButton.style.transform = 'translateY(-2px)';
+        arButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+    };
+    arButton.onmouseout = () => {
+        arButton.style.transform = 'translateY(0)';
+        arButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+    };
+    arButton.onclick = () => {
+        document.body.removeChild(overlay);
+        // Scroll a la sección AR y activar
+        const arContainer = document.getElementById('ar-container');
+        arContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => activateAR(), 800);
+    };
+
+    // Botón Cerrar
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Cerrar';
+    closeButton.style.cssText = `
+        background: #e0e0e0;
+        color: #555;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    `;
+    closeButton.onmouseover = () => {
+        closeButton.style.background = '#d0d0d0';
+        closeButton.style.transform = 'translateY(-2px)';
+    };
+    closeButton.onmouseout = () => {
+        closeButton.style.background = '#e0e0e0';
+        closeButton.style.transform = 'translateY(0)';
+    };
+    closeButton.onclick = () => {
+        overlay.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => document.body.removeChild(overlay), 300);
+    };
+
+    // Ensamblar elementos
+    buttonContainer.appendChild(arButton);
+    buttonContainer.appendChild(closeButton);
+    messageBox.appendChild(title);
+    messageBox.appendChild(description);
+    messageBox.appendChild(buttonContainer);
+    overlay.appendChild(messageBox);
+
+    // Agregar al DOM
+    document.body.appendChild(overlay);
+
+    // Cerrar al hacer clic fuera del mensaje
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => document.body.removeChild(overlay), 300);
+        }
+    };
 }
 
 // ============================================
