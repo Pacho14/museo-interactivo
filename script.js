@@ -5,7 +5,7 @@
 let viewer360 = null;
 
 // Inicializar el visor 360° cuando la página cargue
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initViewer360();
     initARExperience();
 });
@@ -35,17 +35,95 @@ function initViewer360() {
                 "loadButtonLabel": "Haz clic para cargar el recorrido",
                 "loadingLabel": "Cargando...",
                 "bylineLabel": "Museo Digital"
-            }
+            },
+            // ============================================
+            // HOTSPOTS INTERACTIVOS PARA AR
+            // ============================================
+            "hotSpots": [
+                {
+                    "pitch": -10,  // Ajusta según la posición del objeto en tu panorama
+                    "yaw": 0,      // Ajusta según la posición del objeto en tu panorama
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": activateARFromHotspot,
+                    "createTooltipArgs": "Ver Traje en AR"
+                }
+                // Puedes agregar más hotspots aquí para otros objetos
+                // {
+                //     "pitch": -5,
+                //     "yaw": 90,
+                //     "type": "custom",
+                //     "cssClass": "ar-hotspot",
+                //     "createTooltipFunc": createARHotspot,
+                //     "clickHandlerFunc": activateARFromHotspot,
+                //     "createTooltipArgs": "Otro Objeto en AR"
+                // }
+            ]
         });
 
-        console.log('Visor 360° inicializado correctamente');
+        console.log('Visor 360° inicializado correctamente con hotspots AR');
     } catch (error) {
         console.error('Error al inicializar el visor 360°:', error);
-        document.getElementById('viewer360').innerHTML = 
+        document.getElementById('viewer360').innerHTML =
             '<div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f0f0f0; color: #666;">' +
             '<p>⚠️ Error al cargar el visor 360°. Verifica que la imagen panorama.jpg existe.</p>' +
             '</div>';
     }
+}
+
+// ============================================
+// FUNCIONES PARA HOTSPOTS AR
+// ============================================
+
+/**
+ * Crea el elemento visual del hotspot AR
+ */
+function createARHotspot(hotSpotDiv, args) {
+    hotSpotDiv.classList.add('ar-hotspot-container');
+
+    // Crear el icono del hotspot
+    const icon = document.createElement('div');
+    icon.className = 'hotspot-icon';
+    icon.innerHTML = '📱';
+
+    // Crear el tooltip
+    const tooltip = document.createElement('div');
+    tooltip.className = 'hotspot-tooltip';
+    tooltip.textContent = args || 'Ver en AR';
+
+    hotSpotDiv.appendChild(icon);
+    hotSpotDiv.appendChild(tooltip);
+
+    // Agregar efecto hover
+    hotSpotDiv.addEventListener('mouseenter', function () {
+        tooltip.style.opacity = '1';
+        tooltip.style.transform = 'translateY(-10px)';
+    });
+
+    hotSpotDiv.addEventListener('mouseleave', function () {
+        tooltip.style.opacity = '0';
+        tooltip.style.transform = 'translateY(0)';
+    });
+}
+
+/**
+ * Maneja el click en un hotspot AR
+ */
+function activateARFromHotspot() {
+    console.log('Hotspot AR clickeado - Activando experiencia AR');
+
+    // Scroll suave a la sección AR
+    const arContainer = document.getElementById('ar-container');
+    arContainer.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+    });
+
+    // Activar AR después de un pequeño delay para que el scroll termine
+    setTimeout(() => {
+        activateAR();
+    }, 800);
 }
 
 // ============================================
@@ -68,7 +146,7 @@ function initARExperience() {
         // Detectar si AR está disponible
         arViewer.addEventListener('load', () => {
             console.log('Model Viewer cargado');
-            
+
             // Verificar capacidades AR
             if (!arViewer.canActivateAR) {
                 console.warn('AR no disponible en este dispositivo');
@@ -90,7 +168,7 @@ function initARExperience() {
 
     // Manejar clic en el botón AR
     if (arButton) {
-        arButton.addEventListener('click', function() {
+        arButton.addEventListener('click', function () {
             activateAR();
         });
     }
@@ -135,7 +213,7 @@ function activateAR() {
     }, 100);
 
     // Escuchar cuando el usuario salga de AR
-    arViewer.addEventListener('ar-status', function(event) {
+    arViewer.addEventListener('ar-status', function (event) {
         if (event.detail.status === 'not-presenting') {
             resetARButton();
         }
@@ -149,7 +227,7 @@ function resetARButton() {
 
     arButton.innerHTML = '<span class="ar-icon">📱</span> Ver en AR';
     arButton.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-    
+
     // Opcional: volver a mostrar el placeholder
     // arViewer.style.display = 'none';
     // arPlaceholder.style.display = 'flex';
@@ -160,14 +238,14 @@ function resetARButton() {
 // ============================================
 
 // Prevenir zoom en doble tap en iOS
-document.addEventListener('touchstart', function(event) {
+document.addEventListener('touchstart', function (event) {
     if (event.touches.length > 1) {
         event.preventDefault();
     }
 }, { passive: false });
 
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function(event) {
+document.addEventListener('touchend', function (event) {
     const now = Date.now();
     if (now - lastTouchEnd <= 300) {
         event.preventDefault();
@@ -176,7 +254,7 @@ document.addEventListener('touchend', function(event) {
 }, false);
 
 // Detectar orientación del dispositivo
-window.addEventListener('orientationchange', function() {
+window.addEventListener('orientationchange', function () {
     console.log('Orientación cambiada');
     // Reajustar el visor si es necesario
     if (viewer360) {
@@ -188,9 +266,9 @@ window.addEventListener('orientationchange', function() {
 
 // Manejar cambios de tamaño de ventana
 let resizeTimer;
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
+    resizeTimer = setTimeout(function () {
         if (viewer360) {
             viewer360.resize();
         }
@@ -206,12 +284,12 @@ function checkSystemStatus() {
     console.log('=== Estado del Sistema ===');
     console.log('Visor 360° inicializado:', viewer360 !== null);
     console.log('AR Viewer disponible:', document.getElementById('ar-viewer') !== null);
-    
+
     const arViewer = document.getElementById('ar-viewer');
     if (arViewer) {
         console.log('AR soportado:', arViewer.canActivateAR);
     }
-    
+
     console.log('Ancho de ventana:', window.innerWidth);
     console.log('Alto de ventana:', window.innerHeight);
     console.log('User Agent:', navigator.userAgent);

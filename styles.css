@@ -153,6 +153,81 @@ section {
     color: #666;
 }
 
+/* ============================================
+   HOTSPOTS AR EN VISOR 360°
+   ============================================ */
+
+.ar-hotspot-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.ar-hotspot {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+    animation: pulseHotspot 2s infinite;
+    transition: transform 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.ar-hotspot:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.9);
+}
+
+.hotspot-icon {
+    font-size: 24px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hotspot-tooltip {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.hotspot-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.85);
+}
+
+@keyframes pulseHotspot {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 4px 30px rgba(102, 126, 234, 1),
+            0 0 0 10px rgba(102, 126, 234, 0.3);
+    }
+}
+
 /* Sección AR */
 .ar-controls {
     text-align: center;
