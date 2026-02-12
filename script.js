@@ -41,8 +41,8 @@ function initViewer360() {
             // ============================================
             "hotSpots": [
                 {
-                    "pitch": -11.63,  // Posición exacta del traje
-                    "yaw": -146.89,   // Posición exacta del traje
+                    "pitch": -4.22,   // Nueva posición del traje (más visible)
+                    "yaw": -30.45,    // Nueva posición del traje (más visible)
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
