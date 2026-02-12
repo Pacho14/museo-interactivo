@@ -41,8 +41,8 @@ function initViewer360() {
             // ============================================
             "hotSpots": [
                 {
-                    "pitch": 2.7067,  // Coordenadas actualizadas (2)
-                    "yaw": -91.4713,  // Coordenadas actualizadas (2)
+                    "pitch": 38.2909, // Coordenadas actualizadas (3)
+                    "yaw": -66.4654,  // Coordenadas actualizadas (3)
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
@@ -50,8 +50,8 @@ function initViewer360() {
                     "createTooltipArgs": "Palenquera antioqueña"
                 },
                 {
-                    "pitch": -23.5271, // Coordenadas actualizadas (2)
-                    "yaw": 15.9393,    // Coordenadas actualizadas (2)
+                    "pitch": 38.9828, // Coordenadas actualizadas (3)
+                    "yaw": -3.3210,   // Coordenadas actualizadas (3)
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
