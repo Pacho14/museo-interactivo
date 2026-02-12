@@ -165,16 +165,19 @@ section {
 .hotspot-button {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
     background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-    border-radius: 25px;
+    border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(255, 0, 0, 0.6);
     animation: pulseHotspot 2s infinite;
     transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    white-space: nowrap;
+    border: 3px solid rgba(255, 255, 255, 0.9);
 }
 
 .hotspot-button:hover {
@@ -183,15 +186,17 @@ section {
 }
 
 .hotspot-icon {
-    font-size: 20px;
+    font-size: 28px;
     line-height: 1;
 }
 
 .hotspot-text {
     color: white;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 10px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 1.2;
 }
 
 @keyframes pulseHotspot {
