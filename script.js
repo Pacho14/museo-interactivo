@@ -41,8 +41,8 @@ function initViewer360() {
             // ============================================
             "hotSpots": [
                 {
-                    "pitch": 10,      // Posición elevada para mejor visibilidad
-                    "yaw": -30.45,    // Posición horizontal ajustada
+                    "pitch": -8.6250, // Coordenadas actualizadas
+                    "yaw": -127.0373, // Coordenadas actualizadas
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
@@ -50,8 +50,8 @@ function initViewer360() {
                     "createTooltipArgs": "Palenquera antioqueña"
                 },
                 {
-                    "pitch": -7.27,   // Coordenadas actualizadas por el usuario
-                    "yaw": -24.34,    // Coordenadas actualizadas por el usuario
+                    "pitch": -5.8293, // Coordenadas actualizadas
+                    "yaw": -4.2507,   // Coordenadas actualizadas
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
@@ -402,3 +402,116 @@ function checkSystemStatus() {
 // Llamar al estado del sistema (útil para debugging)
 // Descomenta la siguiente línea si necesitas debugging
 // setTimeout(checkSystemStatus, 2000);
+
+// ============================================
+// HERRAMIENTAS DE DESARROLLADOR (MODO EDICIÓN)
+// ============================================
+
+let isEditMode = false;
+let tempHotspot = null;
+
+document.addEventListener('DOMContentLoaded', function () {
+    const devToggle = document.getElementById('dev-toggle');
+    const devPanel = document.getElementById('dev-panel');
+    const viewerContainer = document.getElementById('viewer360');
+
+    if (devToggle) {
+        devToggle.addEventListener('click', function () {
+            isEditMode = !isEditMode;
+            devToggle.classList.toggle('active');
+            devPanel.style.display = isEditMode ? 'block' : 'none';
+
+            if (isEditMode) {
+                // Habilitar cursor de cruz
+                document.body.style.cursor = 'crosshair';
+                // Intentar deshabilitar arrastre si es posible, o manejarlo con cuidado
+                // viewer360.setDraggable(false); 
+            } else {
+                // viewer360.setDraggable(true);
+                document.body.style.cursor = 'default';
+                removeTempHotspot();
+            }
+        });
+    }
+
+    // Escuchar clics en el visor para obtener coordenadas
+    if (viewerContainer) {
+        viewerContainer.addEventListener('mousedown', function (event) {
+            // Solo actuar si estamos en modo edición y se presionó Ctrl o estamos en modo activo explícito
+            if (!isEditMode || !viewer360) return;
+
+            // Calcular coordenadas
+            const coords = viewer360.mouseEventToCoords(event);
+            const pitch = coords[0];
+            const yaw = coords[1];
+
+            // Actualizar UI
+            document.getElementById('dev-pitch').textContent = pitch.toFixed(4);
+            document.getElementById('dev-yaw').textContent = yaw.toFixed(4);
+
+            // Crear/Mover marcador temporal
+            updateTempHotspot(pitch, yaw);
+        });
+    }
+});
+
+function updateTempHotspot(pitch, yaw) {
+    // Si ya existe, lo eliminamos primero
+    removeTempHotspot();
+
+    // Agregar nuevo hotspot temporal
+    viewer360.addHotSpot({
+        "pitch": pitch,
+        "yaw": yaw,
+        "type": "custom",
+        "cssClass": "temp-marker",
+        "createTooltipFunc": (hotSpotDiv) => {
+            hotSpotDiv.classList.add('temp-marker');
+            tempHotspot = hotSpotDiv;
+        }
+    });
+
+    console.log(`Coordenadas capturadas: Pitch ${pitch}, Yaw ${yaw}`);
+}
+
+function removeTempHotspot() {
+    // Eliminar visualmente los marcadores temporales
+    const markers = document.getElementsByClassName('temp-marker');
+    while (markers.length > 0) {
+        if (markers[0].parentNode) {
+            markers[0].parentNode.removeChild(markers[0]);
+        } else {
+            break;
+        }
+    }
+}
+
+function copyCoordinates() {
+    const pitch = document.getElementById('dev-pitch').textContent;
+    const yaw = document.getElementById('dev-yaw').textContent;
+
+    const jsonSnippet = `
+                {
+                    "pitch": ${pitch},
+                    "yaw": ${yaw},
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "Nuevo Objeto"
+                }`;
+
+    navigator.clipboard.writeText(jsonSnippet).then(() => {
+        alert('¡JSON copiado al portapapeles!');
+    }).catch(err => {
+        console.error('Error al copiar:', err);
+        // Fallback manual si falla el clipboard API
+        const textArea = document.createElement("textarea");
+        textArea.value = jsonSnippet;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("Copy");
+        textArea.remove();
+        alert('¡JSON copiado (fallback)!');
+    });
+}
