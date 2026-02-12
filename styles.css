@@ -302,3 +302,113 @@ body {
         height: 400px;
     }
 }
+
+/* ========================================= */
+/* ESTILOS NUEVOS PARA HOTSPOTS (MINIMALISTAS) */
+/* ========================================= */
+
+.hotspot-button {
+    /* Reset de estilos anteriores */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* Fondo transparente, solo icono visible */
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    /* Borde sutil dorado */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    /* Glow suave inicial */
+    animation: softPulse 2s infinite;
+    /* Pulso constante */
+}
+
+/* Icono (Solo el emoji o svg) */
+.hotspot-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+    /* Glow amarillo */
+    transition: transform 0.3s ease;
+    /* Color amarillo dorado brillante */
+    color: #FFD700 !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Estados Hover y Active del botón */
+.hotspot-button:hover {
+    transform: scale(1.15);
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6),
+        0 0 10px rgba(255, 215, 0, 1);
+    border-color: rgba(255, 215, 0, 0.8);
+}
+
+/* Texto Flotante (Oculto por defecto) */
+.hotspot-text {
+    position: absolute;
+    left: 50px;
+    /* Posicionado a la derecha del botón */
+    top: 50%;
+    transform: translateY(-50%) translateX(-10px);
+    background: rgba(0, 0, 0, 0.85);
+    /* Fondo negro semitransparente */
+    color: #FFD700;
+    /* Texto dorado */
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    /* No interfere con el clic */
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* Flechita del tooltip (opcional, para estética) */
+.hotspot-text::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px 6px 6px 0;
+    border-style: solid;
+    border-color: transparent rgba(0, 0, 0, 0.85) transparent transparent;
+}
+
+/* Mostrar texto al hacer hover en el botón */
+.hotspot-button:hover .hotspot-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Animación de pulso suave */
+@keyframes softPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+}
+
+/* Estilo específico para el botón de Audio */
+.audio-hotspot .hotspot-button {
+    /* Diferenciación sutil si se desea, por ahora igual */
+}
