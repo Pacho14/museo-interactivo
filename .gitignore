@@ -1,0 +1,28 @@
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignorar archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignorar archivos temporales
+*.tmp
+*.log
+
+# Archivos de Luma 3D (pueden ser muy grandes)
+# Descomenta estas líneas si no quieres subir los archivos originales a GitHub
+# panorama.jpg
+# modelo.glb
+
+# Node modules (si usas herramientas de desarrollo)
+node_modules/
+package-lock.json
+
+# Archivos de Python (si usas servidor local)
+__pycache__/
+*.pyc

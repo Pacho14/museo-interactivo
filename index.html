@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo Digital - Recorrido 360° y AR</title>
+    
+    <!-- Pannellum para visor 360° -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    
+    <!-- Google Model Viewer para AR -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Banner Superior -->
+    <header class="banner">
+        <div class="banner-overlay">
+            <h1 class="main-title">Museo Digital Interactivo</h1>
+            <p class="subtitle">Explora nuestra colección en 360° y Realidad Aumentada</p>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="container">
+        
+        <!-- Sección Recorrido 360° -->
+        <section class="section-360">
+            <div class="section-header">
+                <h2>Recorrido Virtual 360°</h2>
+                <p class="section-description">
+                    Explora nuestro museo desde cualquier ángulo. Arrastra con el mouse o desliza con el dedo 
+                    para moverte por el espacio. Una experiencia inmersiva que te transporta directamente a nuestras salas.
+                </p>
+            </div>
+            
+            <div class="viewer-container">
+                <div id="viewer360"></div>
+            </div>
+            
+            <div class="controls-info">
+                <p>🖱️ Arrastra para rotar | 📱 Desliza en móvil | 🔍 Scroll para zoom</p>
+            </div>
+        </section>
+
+        <!-- Sección Realidad Aumentada -->
+        <section class="section-ar">
+            <div class="section-header">
+                <h2>Experiencia de Realidad Aumentada</h2>
+                <p class="section-description">
+                    Lleva las piezas del museo a tu espacio. Presiona el botón "Ver en AR" para colocar 
+                    modelos 3D en tu entorno real. Requiere un dispositivo compatible con AR.
+                </p>
+            </div>
+
+            <div class="ar-controls">
+                <button id="ar-button" class="ar-button">
+                    <span class="ar-icon">📱</span>
+                    Ver en AR
+                </button>
+                <p class="ar-hint">Toca el botón para iniciar la experiencia AR</p>
+            </div>
+
+            <div class="ar-viewer-container" id="ar-container">
+                <model-viewer
+                    id="ar-viewer"
+                    src="modelo.glb"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    touch-action="pan-y"
+                    shadow-intensity="1"
+                    alt="Modelo 3D del museo"
+                    style="display: none;">
+                    
+                    <div class="ar-prompt" slot="ar-button">
+                        <p>AR activado - Toca para colocar en tu espacio</p>
+                    </div>
+                </model-viewer>
+                
+                <div id="ar-placeholder" class="ar-placeholder">
+                    <div class="placeholder-content">
+                        <span class="placeholder-icon">🎨</span>
+                        <p>Presiona "Ver en AR" para comenzar</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ar-not-supported" class="ar-warning" style="display: none;">
+                <p>⚠️ Tu dispositivo no soporta AR. Intenta desde un dispositivo móvil compatible.</p>
+            </div>
+        </section>
+
+        <!-- Información Adicional -->
+        <section class="info-section">
+            <h3>Acerca de esta experiencia</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🌐 Recorrido 360°</h4>
+                    <p>Navegación panorámica completa exportada desde Luma 3D con calidad fotorrealista.</p>
+                </div>
+                <div class="info-card">
+                    <h4>📱 Realidad Aumentada</h4>
+                    <p>Modelos 3D interactivos que puedes colocar en tu espacio real usando tu cámara.</p>
+                </div>
+                <div class="info-card">
+                    <h4>🎯 Sin Marcadores</h4>
+                    <p>Detección automática de superficies para una experiencia AR fluida y natural.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Museo Digital. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
