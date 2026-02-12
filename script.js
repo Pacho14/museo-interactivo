@@ -41,8 +41,8 @@ function initViewer360() {
             // ============================================
             "hotSpots": [
                 {
-                    "pitch": -10,  // Ajusta según la posición del objeto en tu panorama
-                    "yaw": 0,      // Ajusta según la posición del objeto en tu panorama
+                    "pitch": -11.63,  // Posición exacta del traje
+                    "yaw": -146.89,   // Posición exacta del traje
                     "type": "custom",
                     "cssClass": "ar-hotspot",
                     "createTooltipFunc": createARHotspot,
