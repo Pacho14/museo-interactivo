@@ -40,25 +40,7 @@ function initViewer360() {
             // HOTSPOTS INTERACTIVOS PARA AR
             // ============================================
             "hotSpots": [
-                {
-                    "pitch": 10,      // Posición elevada para mejor visibilidad
-                    "yaw": -30.45,    // Nueva posición del traje (más visible)
-                    "type": "custom",
-                    "cssClass": "ar-hotspot",
-                    "createTooltipFunc": createARHotspot,
-                    "clickHandlerFunc": activateARFromHotspot,
-                    "createTooltipArgs": "Ver Traje en AR"
-                }
-                // Puedes agregar más hotspots aquí para otros objetos
-                // {
-                //     "pitch": -5,
-                //     "yaw": 90,
-                //     "type": "custom",
-                //     "cssClass": "ar-hotspot",
-                //     "createTooltipFunc": createARHotspot,
-                //     "clickHandlerFunc": activateARFromHotspot,
-                //     "createTooltipArgs": "Otro Objeto en AR"
-                // }
+                // Hotspots removidos por solicitud del usuario
             ]
         });
 
