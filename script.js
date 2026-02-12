@@ -148,7 +148,7 @@ function showInfoMessage() {
 
     // Descripción
     const description = document.createElement('p');
-    description.textContent = '¿Deseas ver este objeto en Realidad Aumentada?';
+    description.textContent = 'Traje tradicional de la cultura palenquera de Antioquia, Colombia.';
     description.style.cssText = `
         color: #555;
         font-size: 1.1rem;
@@ -156,23 +156,14 @@ function showInfoMessage() {
         line-height: 1.6;
     `;
 
-    // Contenedor de botones
-    const buttonContainer = document.createElement('div');
-    buttonContainer.style.cssText = `
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-    `;
-
-    // Botón Ver en AR
-    const arButton = document.createElement('button');
-    arButton.textContent = '📱 Ver en AR';
-    arButton.style.cssText = `
+    // Botón Cerrar
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Cerrar';
+    closeButton.style.cssText = `
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        padding: 1rem 2rem;
+        padding: 1rem 2.5rem;
         font-size: 1.1rem;
         font-weight: 600;
         border-radius: 50px;
@@ -180,43 +171,13 @@ function showInfoMessage() {
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     `;
-    arButton.onmouseover = () => {
-        arButton.style.transform = 'translateY(-2px)';
-        arButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
-    };
-    arButton.onmouseout = () => {
-        arButton.style.transform = 'translateY(0)';
-        arButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
-    };
-    arButton.onclick = () => {
-        document.body.removeChild(overlay);
-        // Scroll a la sección AR y activar
-        const arContainer = document.getElementById('ar-container');
-        arContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => activateAR(), 800);
-    };
-
-    // Botón Cerrar
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Cerrar';
-    closeButton.style.cssText = `
-        background: #e0e0e0;
-        color: #555;
-        border: none;
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    `;
     closeButton.onmouseover = () => {
-        closeButton.style.background = '#d0d0d0';
         closeButton.style.transform = 'translateY(-2px)';
+        closeButton.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
     };
     closeButton.onmouseout = () => {
-        closeButton.style.background = '#e0e0e0';
         closeButton.style.transform = 'translateY(0)';
+        closeButton.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
     };
     closeButton.onclick = () => {
         overlay.style.animation = 'fadeOut 0.3s ease';
@@ -224,11 +185,9 @@ function showInfoMessage() {
     };
 
     // Ensamblar elementos
-    buttonContainer.appendChild(arButton);
-    buttonContainer.appendChild(closeButton);
     messageBox.appendChild(title);
     messageBox.appendChild(description);
-    messageBox.appendChild(buttonContainer);
+    messageBox.appendChild(closeButton);
     overlay.appendChild(messageBox);
 
     // Agregar al DOM
