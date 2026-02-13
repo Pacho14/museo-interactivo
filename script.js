@@ -101,6 +101,15 @@ function initViewer360() {
                     "createTooltipFunc": createARHotspot,
                     "clickHandlerFunc": toggleAudio,
                     "createTooltipArgs": "AUDIO_MARIMBA"
+                },
+                {
+                    "pitch": -3.0935,
+                    "yaw": 76.5287,
+                    "type": "custom",
+                    "cssClass": "ar-hotspot",
+                    "createTooltipFunc": createARHotspot,
+                    "clickHandlerFunc": showInfoMessage,
+                    "createTooltipArgs": "PALENQUES EN COLOMBIA-MAPA"
                 }
             ]
         });
@@ -246,6 +255,8 @@ function showInfoMessage(event, args) {
         objectInfo.description = 'Exposición destacada de Cristian Baena.';
     } else if (objectTitle === 'CALIPSO') {
         objectInfo.description = 'Obra inspirada en la ninfa Calipso.';
+    } else if (objectTitle === 'PALENQUES EN COLOMBIA-MAPA') {
+        objectInfo.description = 'Mapa interactivo de los Palenques en Colombia - comunidades con historia, resistencia y herencia cultural afrodescendiente.';
     }
 
     // Crear overlay oscuro
