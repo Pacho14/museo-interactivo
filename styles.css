@@ -136,7 +136,7 @@ body {
 
 .viewer-container {
     width: 100%;
-    height: 600px;
+    height: 750px;
     /* Altura del panorama */
     border-radius: 0;
     overflow: hidden;
