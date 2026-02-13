@@ -461,3 +461,12 @@ body {
     line-height: 1.7;
     margin-bottom: 15px !important;
 }
+
+/* ========== ESTILOS PARA EXPERIENCIA AR ========== */
+
+.ar-description {
+    font-size: 0.95rem;
+    color: #bbb;
+    line-height: 1.7;
+    margin-bottom: 15px !important;
+}
