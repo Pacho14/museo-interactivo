@@ -203,12 +203,12 @@ function createARHotspot(hotSpotDiv, args) {
     const icon = document.createElement('span');
     icon.className = 'hotspot-icon';
 
-    // Icono diferenciado para Audio (sin icono visual)
+    // Icono diferenciado para Audio (mantiene el icono)
     if (args === 'AUDIO_MARIMBA') {
-        icon.innerHTML = '';
+        icon.innerHTML = '🔊';
         button.style.background = 'linear-gradient(135deg, #FF9800 0%, #F44336 100%)'; // Color naranja/rojo para audio
     } else {
-        icon.innerHTML = '📱';
+        icon.innerHTML = ''; // Sin icono para los otros botones
     }
 
     // Texto del botón
@@ -218,7 +218,7 @@ function createARHotspot(hotSpotDiv, args) {
     if (args === 'AUDIO_MARIMBA') {
         text.textContent = 'Escuchar';
     } else {
-        text.textContent = args || 'Ver en AR';
+        text.textContent = ''; // Sin texto para los otros botones, solo el gesto
     }
 
     button.appendChild(icon);
