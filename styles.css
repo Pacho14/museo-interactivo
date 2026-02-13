@@ -470,3 +470,23 @@ body {
     line-height: 1.7;
     margin-bottom: 15px !important;
 }
+
+/* ========== ESTILOS PARA INTRODUCCIÓN LA ZONA AFRO ========== */
+
+.intro-section {
+    padding: 40px 20px;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid rgba(56, 239, 125, 0.1);
+}
+
+.intro-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.intro-text {
+    font-size: 1rem;
+    color: #bbb;
+    line-height: 1.8;
+    text-align: justify;
+}
