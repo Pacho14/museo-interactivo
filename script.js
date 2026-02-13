@@ -203,9 +203,9 @@ function createARHotspot(hotSpotDiv, args) {
     const icon = document.createElement('span');
     icon.className = 'hotspot-icon';
 
-    // Icono diferenciado para Audio
+    // Icono diferenciado para Audio (sin icono visual)
     if (args === 'AUDIO_MARIMBA') {
-        icon.innerHTML = '🔊';
+        icon.innerHTML = '';
         button.style.background = 'linear-gradient(135deg, #FF9800 0%, #F44336 100%)'; // Color naranja/rojo para audio
     } else {
         icon.innerHTML = '📱';
