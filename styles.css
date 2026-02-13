@@ -490,3 +490,30 @@ body {
     line-height: 1.8;
     text-align: justify;
 }
+
+/* ========== ESTILOS PARA CONTEXTO NARRATIVO ========== */
+
+.narrative-context {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: rgba(56, 239, 125, 0.05);
+    border-left: 3px solid rgba(56, 239, 125, 0.3);
+    border-radius: 5px;
+}
+
+.narrative-context p {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+.narrative-context p:last-child {
+    margin-bottom: 0;
+}
+
+.context-cta {
+    font-style: italic;
+    color: #38ef7d !important;
+    font-weight: 500;
+}
