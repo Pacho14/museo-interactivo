@@ -452,3 +452,12 @@ body {
 .info-section p:last-child {
     margin-bottom: 0;
 }
+
+/* ========== ESTILOS PARA RECORRIDO VIRTUAL 360° ========== */
+
+.panorama-description {
+    font-size: 0.95rem;
+    color: #bbb;
+    line-height: 1.7;
+    margin-bottom: 15px !important;
+}
