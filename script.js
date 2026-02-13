@@ -239,6 +239,7 @@ function showInfoMessage(event, args) {
         objectInfo.description = 'Traje tradicional de la cultura laboral de Antioquia, Colombia.';
     } else if (objectTitle === 'Caminos trenzados') {
         objectInfo.description = 'Obra artística que representa los caminos entrelazados de nuestra cultura.';
+        objectInfo.lumaLink = 'https://lumalabs.ai/capture/A6F9E06B-DC6E-41A9-95B1-F2171FD11178';
     } else if (objectTitle === 'MARIMBA') {
         objectInfo.description = 'Instrumento de percusión idiófono, de forma parecida al xilófono. Presiona el botón de audio 🔊 que está al lado para escuchar.';
     } else if (objectTitle === 'EXPO NEGRO-CRISTIAN BAENA') {
@@ -350,6 +351,38 @@ function showInfoMessage(event, args) {
         audioPlayer.onerror = () => {
             console.warn('Audio no encontrado:', objectInfo.audio);
         };
+    }
+
+    // Si hay Luma Link, agregar botón
+    if (objectInfo.lumaLink) {
+        const lumaButton = document.createElement('a');
+        lumaButton.href = objectInfo.lumaLink;
+        lumaButton.target = '_blank';
+        lumaButton.textContent = 'Ver en Luma Labs';
+        lumaButton.style.cssText = `
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 153, 204, 0.4);
+        `;
+        lumaButton.onmouseover = () => {
+            lumaButton.style.transform = 'translateY(-2px)';
+            lumaButton.style.boxShadow = '0 6px 20px rgba(0, 153, 204, 0.6)';
+        };
+        lumaButton.onmouseout = () => {
+            lumaButton.style.transform = 'translateY(0)';
+            lumaButton.style.boxShadow = '0 4px 15px rgba(0, 153, 204, 0.4)';
+        };
+        messageBox.appendChild(lumaButton);
     }
 
     messageBox.appendChild(closeButton);
