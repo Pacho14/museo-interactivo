@@ -135,14 +135,24 @@ function toggleAudio(event, args) {
         currentAudio.loop = true; // Que se repita
     }
 
+    // Obtener el elemento del hotspot de audio
+    const audioHotspots = document.querySelectorAll('.audio-hotspot');
+    const audioHotspot = audioHotspots.length > 0 ? audioHotspots[0] : null;
+
     if (isPlaying) {
         currentAudio.pause();
         isPlaying = false;
+        if (audioHotspot) {
+            audioHotspot.classList.remove('playing');
+        }
         showToast('Audio Pausado ⏸️');
     } else {
         currentAudio.play()
             .then(() => {
                 isPlaying = true;
+                if (audioHotspot) {
+                    audioHotspot.classList.add('playing');
+                }
                 showToast('Reproduciendo Audio 🎵');
             })
             .catch(e => {

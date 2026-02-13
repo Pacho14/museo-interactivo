@@ -426,7 +426,28 @@ body {
 
 /* Estilo específico para el botón de Audio */
 .audio-hotspot .hotspot-button {
-    /* Diferenciación sutil si se desea, por ahora igual */
+    transition: all 0.1s ease !important;
+}
+
+.audio-hotspot .hotspot-button:active {
+    transform: scale(0.85) translateY(3px) !important;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+@keyframes pushPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.audio-hotspot.playing .hotspot-button {
+    animation: pushPulse 0.6s infinite;
 }
 
 /* ========== ESTILOS PARA BAREQUERA DE ANTIOQUIA ========== */
